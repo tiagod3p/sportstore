@@ -1,0 +1,114 @@
+<div class="item">
+    <div>Select a category</div>
+    <div>
+        <select name="category_id">
+            {% for category in categories %}
+            <option value="{{category.id}}" {% if product.category_id == category.id %} selected {% endif %}>
+                {{category.name}}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="item">
+    <div>Name</div>
+    <div>
+        <input 
+        type="text"
+        name="name" 
+        value="{{product.name}}"
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div>Description</div>
+    <div>
+        <textarea name="description">{{product.description}}</textarea>
+    </div>
+</div>
+
+<div class="item">
+    <div>Product images</div>
+    <div>
+        <div id="upload-img">
+            <input 
+            type="file" 
+            name="images" 
+            id="images-input"
+            multiple
+            accept="image/*"
+            onchange="ImagesUpload.handleInput(event)">
+            <p>Select up to 6 images</p>
+        </div>
+        <div id="preview-img">
+            {% if files %}
+                {% for image in files %}
+                    <div class="image" id="{{image.id}}">
+                        <img src="{{image.src}}" alt="{{image.name}}">
+                        <i class="material-icons"
+                        onclick="ImagesUpload.removeOldImage(event)">
+                        delete
+                        </i>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <input type="hidden" name="removedImage">
+        </div>
+    </div>
+</div>
+
+<div class="item">
+    <div>Price</div>
+    <div>
+        <input 
+        type="text"
+        name="price" 
+        value="{{product.price}}"
+        onkeydown="Mask.apply(this,'formatUSD')"
+        >
+    </div>
+    {% if product.old_price %}
+    <input type="hidden" name="old_price" value="{{product.old_price}}">
+    {% endif %}
+</div>
+
+<div class="item">
+    <div>Quantity</div>
+    <div>
+        <input 
+        type="number"
+        name="quantity" 
+        placeholder="Product stock"
+        value="{{product.quantity}}"
+        >
+    </div>
+</div>
+
+{% if product.status == 1 or product.status == 0 %}
+<div class="item">
+    <div>Available?</div>
+    <div>
+        <span>
+            <input 
+            type="radio"
+            name="status" 
+            value="1" 
+            {% if product.status == "1" %} 
+            checked
+            {% endif %}>Yes
+        </span>
+        <span>
+            <input 
+            type="radio"
+            name="status" 
+            value="0" 
+            {% if product.status == "0" %} 
+            checked
+            {% endif %}>No
+        </span>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,75 @@
+{% extends "layout.njk" %}
+
+{% block title %}{{product.name}}{% endblock title %}
+
+{% block content %}
+<section class="single-product container">
+    <div class="gallery">
+        <div class="highlight">
+            {% if not files %}
+            <img src="http://placehold.it/500x500?text=Product without photo" alt="">
+            {% else %}
+            <img src="{{files[0].src}}" alt="{{files[0].name}}" onclick="Lightbox.open(event)">
+            {% endif %}
+
+            <div class="lightbox" onclick="Lightbox.closeModal()">
+                <img src="{{files[0].src}}" alt="{{files[0].name}}">
+                <a href="#" onclick="Lightbox.close()">
+                    <i class="material-icons">close
+                    </i>
+                </a>
+            </div>
+        </div>
+
+        <div class="preview-gallery">
+            {% for image in files %}
+            <img 
+            src="{{image.src}}" 
+            alt="{{image.name}}"
+            onclick="ImagesPreview.miniatureTurnsHighlight(event)"
+            {% if loop.index0 == 0 %}
+            class="active"
+            {% endif %}>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="details">
+        <h1>{{product.name}}</h1>
+
+        <div class="published">
+            Published in {{product.updated_at}}
+        </div>
+
+        <div class="description">
+            {{product.description}}
+        </div>
+
+        <div class="buy">
+            <div class="price">
+                {{product.price}}
+            </div>
+
+           {% if product.price < product.old_price %}
+                <div class="oldprice">
+                    {{product.old_price}}
+                </div>
+                <div class="discount">
+                    Save {{discounts.inUsd}} ({{discounts.inPercent}}%)
+                </div>
+            {% endif %}
+            
+            <div class="buy-now">
+                {% if product.status == 0 %}
+                    <p class="unavailable">Unavailable</p>
+                {% elif product.quantity < 1 %}
+                    <p class="unavailable">Out of stock</p>
+                {% else %}
+                    <button class="button edit">Buy now</button>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock content %}

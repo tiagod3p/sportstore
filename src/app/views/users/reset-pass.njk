@@ -1,0 +1,55 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+<section class="pass-recovery container form">
+    <form action="/users/reset-password" method="POST">
+    
+        <div class="header">
+            <h3>New password</h3>
+        </div>
+        
+        <div class="fields">
+
+            <div class="item">
+                <div>Email</div>
+                <div>
+                    <input 
+                    type="email"
+                    name="email" 
+                    value="{{user.email}}"
+                    >
+                </div>
+            </div>
+
+            <div class="item">
+                <div>Password</div>
+                <div>
+                    <input 
+                    type="password"
+                    name="password" 
+                    placeholder="At least 6 characters"
+                    >
+                </div>
+            </div>
+
+            <div class="item">
+                <div>Re-enter password</div>
+                <div>
+                    <input 
+                    type="password"
+                    name="passwordRepeat" 
+                    >
+                </div>
+            </div>
+        </div> 
+
+        <input type="hidden" name="token" value={{token}}>
+        
+        <button class="button"type="submit">Confirm</button>
+    </form>
+</section>
+
+{% endblock content %}
+
+

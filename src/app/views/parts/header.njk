@@ -1,0 +1,56 @@
+<header>
+    <div class="container">
+        <a href="/">
+            <div class="logo">
+                <h1>SportStore</h1>
+                <h2>Buy the best jerseys</h2>
+            </div>
+        </a>
+
+        <form action="/search" class="search" method="GET">
+            <input 
+            type="text"
+            name="filter"
+            placeholder="Search by product"
+            {% if search.term %}
+            value="{{search.term}}"
+            {% endif %}
+            >
+        </form>
+
+        <nav class="primary">
+            <ul>
+                <li>
+                    <a href="/ads/add">
+                        <i class="material-icons">add</i>
+                        New announcement
+                    </a>
+                </li>
+                <li class="accounts">
+                    <a href="/accounts">
+                        <i class="material-icons">account_circle</i>
+                        My account
+                    </a>  
+                    {% if session.userId %}
+                    <ul class="submenu">
+                        <li>
+                            <a href="/users/dashboard">My account</a>
+                        </li>
+                        <li>
+                            <a href="/buying">My orders</a>
+                        </li>
+                        <li>
+                            <a href="/selling">My sales</a>
+                        </li>
+                        <li>
+                            <form action="/users/logout" method="POST">
+                            <button type="submit">Sign out</button>
+                            </form>
+                        </li>
+                    </ul> 
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,87 @@
+<div class="item">
+    <div>Your Name</div>
+    <div>
+        <input 
+        type="text"
+        name="name" 
+        value="{{user.name}}"
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div>Email</div>
+    <div>
+        <input 
+        type="email"
+        name="email" 
+        value="{{user.email}}"
+        onblur="Validate.apply(this, 'isEmail')"
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div>Password</div>
+    <div>
+        <input 
+        type="password"
+        name="password" 
+        {% if session.userId %}
+        placeholder="Type your password to authenticate"
+        {% else %}
+        placeholder="At least 6 characters"
+        {% endif %}
+        >
+    </div>
+</div>
+
+{% if not session.userId %}
+
+<div class="item">
+    <div>Re-enter password</div>
+    <div>
+        <input 
+        type="password"
+        name="passwordRepeat" 
+        >
+    </div>
+</div>
+{% endif %}
+
+<div class="item">
+    <div>CPF or CNPJ</div>
+    <div>
+        <input 
+        type="text"
+        name="cpf_cnpj" 
+        value="{{user.cpf_cnpj}}"
+        onkeydown="Mask.apply(this,'cpfCnpj')"
+        onblur="Validate.apply(this,'isCpfCnpj')"
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div>CEP</div>
+    <div>
+        <input 
+        type="text"
+        name="cep" 
+        value="{{user.cep}}"
+        onkeydown="Mask.apply(this,'cep')"
+        onblur="Validate.apply(this,'isCep')"
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div>Address</div>
+    <div>
+        <input 
+        type="text"
+        name="address" 
+        value="{{user.address}}"
+        >
+    </div>
+</div>
