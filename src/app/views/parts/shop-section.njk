@@ -18,10 +18,10 @@
                 <h4><a href="/products/{{product.id}}" class="name">{{product.name}}</a></h4>
 
                 <div class="prices">
-                    <a href="/products/{{product.id}}" class="price-link">{{product.price}}</a>
+                    <a href="/products/{{product.id}}" class="price-link">{{product.formattedPrice}}</a>
                     {% if product.price < product.old_price %}
                     <p class="oldprice">
-                        {{product.old_price}}
+                        {{product.formattedOldPrice}}
                     </p>
                     {% endif %}
                 </div>

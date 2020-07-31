@@ -6,14 +6,17 @@
 <section class="single-product container">
     <div class="gallery">
         <div class="highlight">
-            {% if not files %}
+            {% if not product.files %}
             <img src="http://placehold.it/500x500?text=Product without photo" alt="">
             {% else %}
-            <img src="{{files[0].src}}" alt="{{files[0].name}}" onclick="Lightbox.open(event)">
+            <img 
+            src="{{product.files[0].src}}" 
+            alt="{{product.files[0].name}}" 
+            onclick="Lightbox.open(event)">
             {% endif %}
 
             <div class="lightbox" onclick="Lightbox.closeModal()">
-                <img src="{{files[0].src}}" alt="{{files[0].name}}">
+                <img src="{{product.files[0].src}}" alt="{{product.files[0].name}}">
                 <a href="#" onclick="Lightbox.close()">
                     <i class="material-icons">close
                     </i>
@@ -22,7 +25,7 @@
         </div>
 
         <div class="preview-gallery">
-            {% for image in files %}
+            {% for image in product.files %}
             <img 
             src="{{image.src}}" 
             alt="{{image.name}}"
@@ -47,15 +50,15 @@
 
         <div class="buy">
             <div class="price">
-                {{product.price}}
+                {{product.formattedPrice}}
             </div>
 
            {% if product.price < product.old_price %}
                 <div class="oldprice">
-                    {{product.old_price}}
+                    {{product.formattedOldPrice}}
                 </div>
                 <div class="discount">
-                    Save {{discounts.inUsd}} ({{discounts.inPercent}}%)
+                    Save {{product.discountInUsd}} ({{product.discountInPercentage}}%)
                 </div>
             {% endif %}
             

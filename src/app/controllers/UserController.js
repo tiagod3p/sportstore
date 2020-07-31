@@ -1,4 +1,9 @@
+const { hash } = require("bcryptjs")
+const { unlinkSync } = require('fs')
+
 const User = require('../models/User')
+const Product = require('../models/Product')
+
 const { formatCpfCnpj, formatCep } = require('../../lib/utils')
 
 module.exports = {
@@ -9,6 +14,8 @@ module.exports = {
         try {
             req.body.cpf_cnpj = req.body.cpf_cnpj.replace(/\D/g, "") 
             req.body.cep = req.body.cep.replace(/\D/g, "") 
+
+            req.body.password = await hash(req.body.password, 8)
     
             const userId = await User.add(req.body)
     
@@ -63,13 +70,26 @@ module.exports = {
     },
     async delete(req, res) {
         try {
+            // get all products of the id
+            const products = await Product.findAll({ where: { user_id: req.body.id}})
+
+            // get all files of these products
+            let filesPromise = products.map(product => Product.files(product.id))
+            let filesResults = await Promise.all(filesPromise)
+
+            // delete the user
             await User.delete(req.body.id)
             req.session.destroy()
+
+            // remove imgs of public
+            filesResults.map(files => {
+                files.map(file => unlinkSync(file.path))
+            })
 
             return res.render("users/login", {
                 success: "Your account and your products has been deleted!"
             })
-
+            
         } catch(err) {
             console.error(err)
             return res.render("users/index", {
@@ -77,5 +97,5 @@ module.exports = {
                 user: req.body
             })
         }
-    }
+    }   
 }

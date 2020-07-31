@@ -1,12 +1,11 @@
 const Product = require("../models/Product")
-const { formatPrice } = require("../../lib/utils")
+const LoadService = require("../services/LoadProductService")
 
 module.exports = {
     async index(req, res) {
 
         try {
-            let results,
-                products,
+            let products,
                 params = {}
             
             const { filter, category } = req.query
@@ -17,31 +16,13 @@ module.exports = {
 
             if (category) params.category = category
 
-            results = await Product.search(params)
-            products = results.rows
+            products = await Product.search(params)
 
             if (!products) return res.send(`"${filter} didn't return any result! :/"`)
 
-            async function getImage(productId) {
-                // This function get the files of the products and
-                // returns one file src of each product.
-                let results = await Product.files(productId)
-                if (!results.rows[0]) return
-    
-                const file = results.rows[0]
-                return `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-            }
-    
-            // an array of promises to keep the products
-            const productsPromise = products.map(async product => {
-               product.image = await getImage(product.id)
-               product.price = formatPrice(product.price)
-               product.old_price = formatPrice(product.old_price)
-               return product
-            }).filter((product, index) => index > 2 ? false : true)
-
-            
-            products = await Promise.all(productsPromise)
+            products = products.map(LoadService.format)
+            products = products.filter((product, index) => index > 5 ? false : true)
+            products = await Promise.all(products)
 
             const search = {
                 term: filter,

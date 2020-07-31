@@ -297,5 +297,24 @@ const Validate = {
             error, 
             value
         }
+    },
+
+    fields(event) {
+        const items = document.querySelectorAll(".item input, .item textarea, .item select")
+
+        for (item of items) {
+            console.log(item)
+            if (!item.value && item.name != "removedImage") {
+                const message = document.createElement('div')
+                message.classList.add("message")
+                message.classList.add("error")
+                message.innerHTML = "Please fill in all fields."
+
+                document.querySelector('body').append(message)
+
+                event.preventDefault()
+                break
+            }
+        }
     }
 }

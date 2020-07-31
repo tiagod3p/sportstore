@@ -43,8 +43,8 @@
             <p>Select up to 6 images</p>
         </div>
         <div id="preview-img">
-            {% if files %}
-                {% for image in files %}
+            {% if product.files %}
+                {% for image in product.files %}
                     <div class="image" id="{{image.id}}">
                         <img src="{{image.src}}" alt="{{image.name}}">
                         <i class="material-icons"
@@ -66,12 +66,12 @@
         <input 
         type="text"
         name="price" 
-        value="{{product.price}}"
+        value="{{product.formattedPrice}}"
         onkeydown="Mask.apply(this,'formatUSD')"
         >
     </div>
     {% if product.old_price %}
-    <input type="hidden" name="old_price" value="{{product.old_price}}">
+    <input type="hidden" name="old_price" value="{{product.formattedOldPrice}}">
     {% endif %}
 </div>
 
