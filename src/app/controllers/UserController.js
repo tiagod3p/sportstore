@@ -3,6 +3,7 @@ const { unlinkSync } = require('fs')
 
 const User = require('../models/User')
 const Product = require('../models/Product')
+const LoadService = require('../services/LoadProductService')
 
 const { formatCpfCnpj, formatCep } = require('../../lib/utils')
 
@@ -12,16 +13,26 @@ module.exports = {
     },
     async post(req, res) {
         try {
-            req.body.cpf_cnpj = req.body.cpf_cnpj.replace(/\D/g, "") 
-            req.body.cep = req.body.cep.replace(/\D/g, "") 
+            let {name, email, password, cpf_cnpj, cep, address}  = req.body
 
-            req.body.password = await hash(req.body.password, 8)
+            cpf_cnpj = cpf_cnpj.replace(/\D/g, "") 
+            cep = cep.replace(/\D/g, "") 
     
-            const userId = await User.add(req.body)
+
+            password = await hash(password, 8)
+    
+            const userId = await User.add({
+                name,
+                email,
+                password,
+                cpf_cnpj,
+                cep,
+                address
+            })
     
             req.session.userId = userId
     
-            return res.redirect("/users/dashboard")
+            return res.redirect("/user/dashboard")
         } catch (err) {
             console.error(err)
             return res.render("users/login", {
@@ -97,5 +108,19 @@ module.exports = {
                 user: req.body
             })
         }
-    }   
+    },
+    async ads(req, res) {
+        try {
+            const user_id = req.session.userId
+            const products = await LoadService.load("products", {where: {user_id}})
+
+            return res.render("users/ads", { products })
+        } catch(err) {
+            console.error(err)
+            return res.render("/", {
+                error: "An error ocurred, please try again later!"
+            })
+        }
+
+    }
 }

@@ -10,7 +10,7 @@ const products = require('./products')
 routes.get('/', HomeController.index)
 routes.get('/search', SearchController.index)
 
-routes.use("/users", users)
+routes.use("/user", users)
 routes.use("/products", products)
 
 // ALIAS ---> ATALHO
@@ -19,7 +19,7 @@ routes.get('/ads/add', function(req, res) {
 })
 
 routes.get('/accounts', function(req, res) {
-    return res.redirect('/users/dashboard')
+    return res.redirect('/user/dashboard')
 })
 
 module.exports = routes

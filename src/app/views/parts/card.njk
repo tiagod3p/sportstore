@@ -1,0 +1,15 @@
+{% macro render(title, class) %}
+
+<section class="card {{class}}">
+
+    <div class="card-header header">
+        <h3>{{ title }}</h3>
+    </div>
+
+    <div class="card-content">
+        {{ caller() }}
+    </div>
+
+</section>
+
+{% endmacro %}

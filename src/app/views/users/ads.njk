@@ -1,0 +1,39 @@
+{% extends "layout.njk" %}
+{% import "parts/card.njk" as card %}
+
+{% block content %}
+
+{%call card.render("My products", "users-ads container")%}
+    <div class="items">
+
+        {% if products | length == 0 %}
+            <div class="title">You don't have any products yet!
+            <a class="create-product" href="/products/add"> Create one now!</a>
+            </div>
+        {% endif %}
+ 
+        {% for product in products %}
+            <div class="item">
+                <div class="image" style="background-image: url({{product.image}})"></div>
+
+                <div class="info">
+                    <div class="title">{{product.name}}</div>
+                    <div class="price">{{product.formattedPrice}}</div>
+                    <div class="published">Published at {{product.created_at}}</div>
+
+
+                    <div class="actions">
+                        <a href="/products/{{product.id}}">See</a>
+                        <a href="/products/{{product.id}}/edit">Edit</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endcall %}
+
+{% endblock content %}

@@ -1,0 +1,118 @@
+:root {
+    --primary-color: #f08804;
+    --secondary-color: #4053ff;
+}
+
+/* === REGISTER USER === */
+.user-register.container.form,
+.user-login.container.form,
+.pass-recovery.container.form {
+    max-width: 500px;
+}
+
+.user-register input[name="email"],
+.user-register input[name="password"],
+.user-register input[name="passwordRepeat"],
+.user-register input[name="cpf_cnpj"],
+.user-register input[name="cep"] {
+    max-width: 50%;
+}
+
+/* === LOGIN === */
+.user-login.container.form .footer ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.user-login.container.form .footer ul li a {
+    color: #666;
+}
+
+.user-login.container.form .footer ul li:nth-child(2) a:first-child {
+    color: var(--secondary-color);
+}
+
+.user-login.container.form .footer ul li a:hover {
+    color: black;
+    font-weight: bold;
+}
+
+/* === CARD USER ADS === */
+.users-ads {
+    max-width: 800px;
+}
+
+.users-ads .items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+
+    padding: 16px 0;
+}
+
+.users-ads .item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+
+    align-items: start;
+
+    color: #555;
+
+    margin: 32px 0;
+}
+
+.users-ads .item .image {
+    width: 100px;
+    height: 100px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    border-radius: 8px;
+    border: 1px solid #dadadae9;
+}
+
+.users-ads .item .info{
+    display: flex;
+    flex-direction: column;
+
+    height: 100px;
+}
+
+.users-ads .item .info .title {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.users-ads .item .info .price {
+    margin-top: 10px;
+    font-weight: 700;
+    color: #556;
+}
+
+.users-ads .item .actions {
+    display: flex;
+
+    margin-top: auto;
+}
+
+.users-ads .item .actions a:first-child {
+    color: var(--primary-color);
+    margin-right: 62px;
+
+    transition: all 200ms;
+}
+
+.users-ads .item .actions a:nth-child(2),
+.create-product {
+    color: var(--secondary-color);
+
+    transition: all 200ms;
+}
+
+.users-ads .item .actions a:hover,
+.create-product:hover  {
+    font-weight: bold;
+}

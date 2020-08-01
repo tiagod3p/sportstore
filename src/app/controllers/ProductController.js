@@ -77,6 +77,10 @@ module.exports = {
             
             if (!product) return res.send("Product not found!")
 
+            if (!req.session.userId || product.user_id != req.session.userId) {
+                return res.redirect("/user/login")
+            }
+
             // get categories
             const categories = await Category.findAll()
 

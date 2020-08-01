@@ -23,6 +23,7 @@ async function format(product) {
     product.files = files
     product.formattedOldPrice = formatPrice(product.old_price)
     product.formattedPrice = formatPrice(product.price)
+    product.created_at = dateFormatted(product.created_at).brasil
     product.updated_at = dateFormatted(product.updated_at).brasil
     product.discountInUsd =  formatPrice((product.price - product.old_price))
     product.discountInPercentage = Math.round((100*(1 - product.price/product.old_price)))

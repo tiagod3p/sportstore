@@ -494,7 +494,7 @@ section.single-product .details .description {
 }
 
 section.single-product .details .buy  {
- 
+    margin-top: auto;
 }
 
 section.single-product .details .buy .price {
@@ -645,38 +645,3 @@ section.search .categories ul li a:hover {
     font-weight: 700;
 }
 
-/* === REGISTER USER === */
-.user-register.container.form,
-.user-login.container.form,
-.pass-recovery.container.form {
-    max-width: 500px;
-}
-
-.user-register input[name="email"],
-.user-register input[name="password"],
-.user-register input[name="passwordRepeat"],
-.user-register input[name="cpf_cnpj"],
-.user-register input[name="cep"] {
-    max-width: 50%;
-}
-
-/* === LOGIN === */
-.user-login.container.form .footer ul {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.user-login.container.form .footer ul li a {
-    color: #666;
-}
-
-.user-login.container.form .footer ul li:nth-child(2) a:first-child {
-    color: var(--secondary-color);
-}
-
-.user-login.container.form .footer ul li a:hover {
-    color: black;
-    font-weight: bold;
-}
-
-/* === RECOVERY PASSWORD === */

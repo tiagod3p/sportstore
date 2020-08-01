@@ -7,7 +7,7 @@ module.exports = {
 
         for (key of keys) {
             if (req.body[key] == "") {
-                return res.render("users/register", {
+                return res.render("user/register", {
                     error: "Please fill in all fields!",
                     user: req.body
                 })
@@ -48,7 +48,7 @@ module.exports = {
             req.user = user
         } catch (err) {
             console.error(err)
-            return res.redirect("/users/login")
+            return res.redirect("/user/login")
         }
 
         next()

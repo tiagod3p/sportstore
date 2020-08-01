@@ -1,6 +1,6 @@
 function userNotLogged(req, res, next) {
     if (!req.session.userId){
-        return res.redirect('/users/login')
+        return res.redirect('/user/login')
     }
 
     next()
@@ -8,7 +8,7 @@ function userNotLogged(req, res, next) {
 
 function userLogged(req, res, next) {
     if (req.session.userId){
-        return res.redirect('/users/dashboard')
+        return res.redirect('/user/dashboard')
     }
 
     next()

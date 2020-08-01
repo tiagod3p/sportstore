@@ -3,7 +3,7 @@
 {% block content %}
 
 <section class="user-dashboard container form">
-    <form action="/users/dashboard?_method=PUT" method="POST">
+    <form action="/user/dashboard?_method=PUT" method="POST">
     
         <div class="header">
             <h3>Details</h3>
@@ -17,7 +17,7 @@
         <button class="button edit"type="submit">Save</button> 
     </form>
 
-    <form action="/users/dashboard?_method=DELETE" method="post">
+    <form action="/user/dashboard?_method=DELETE" method="post">
         <input type="hidden" name="id" value={{user.id}}>
         <button id="button_delete" class="button delete" type="submit">DELETE</button>
     </form>
