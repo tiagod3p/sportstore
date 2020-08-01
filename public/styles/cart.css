@@ -152,3 +152,41 @@
 
     margin: 0 auto;
 }
+
+/* === MENU === */
+header div.container {
+    grid-template-columns: 220px auto 320px;
+}
+
+li.cart a {
+    position: relative;
+}
+
+li.cart a span {
+    position: absolute;
+    right: -6px;
+    bottom: -10px;
+    background: red;
+    
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: bold;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+li.cart a span:hover {
+    background: white;
+    color: black;
+}
+
+li.cart a:hover span{
+    background: white;
+    color: black;
+}
