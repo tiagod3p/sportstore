@@ -1,0 +1,80 @@
+{% extends "layout.njk" %}
+{% import "parts/card.njk" as card %}
+
+{% block content %}
+
+{% if cart.items < 1 %}
+
+    {%call card.render("", "cart-empty container")%}
+        <p>Your Shopping Cart is empty</p>
+        <a href="/" class="button">Buy Now</a>
+    {% endcall %}
+{% else %}
+    {%call card.render("Shopping Cart", "cart container")%}
+        <div class="header">
+            <p>Product</p>
+            <p>Price</p>
+            <p>Quantity</p>
+        </div>
+
+        <div class="items">
+            {% for item in cart.items %}
+                <div class="item">
+                    <a href="/products/{{item.product.id}}">
+                        <img src="{{item.product.image}}" alt="{{item.product.name}}">
+                        <span class="title">{{item.product.name}}</span>
+                    </a>
+
+                    <span class="price">{{item.formattedPrice}}</span>
+
+                    <div class="quantity-control">
+                        <form action="/cart/{{item.product.id}}/delete-one" method="post">
+                            <button class="delete-one">
+                                <i class="material-icons">
+                                    remove_circle_outline
+                                </i>
+                            </button>
+                        </form>
+
+                        <span class="quantity">
+                            {{item.quantity}}
+                        </span>
+
+                        <form action="/cart/{{item.product.id}}/add-one" method="post">
+                            <button class="add">
+                                <i class="material-icons">
+                                    add_circle_outline
+                                </i>
+                            </button>
+                        </form>
+
+                        <form class="trash" action="/cart/{{item.product.id}}/delete-all" method="post">
+                            <button class="delete-all">
+                                <i class="material-icons">
+                                    delete
+                                </i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="total">
+            <p>Total</p>
+            <span>{{cart.total.formattedPrice}}</span>
+        </div>
+
+        <div class="actions">
+            <a href="/" class="button shop">Keep Buying</a>
+            
+            <form action="/user/orders" method="post">
+                <button class="button order">
+                    Checkout
+                </button>
+            </form>
+            </div>
+
+    {% endcall %}
+{% endif %}
+{% endblock content %}

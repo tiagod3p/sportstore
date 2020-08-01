@@ -1,0 +1,154 @@
+.cart .header {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px 30px;
+    grid-gap: 16px;
+
+    margin-bottom: 16px;
+
+    color: #777;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.cart .item {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px 30px;
+    grid-gap: 16px;
+
+    align-items: center;
+
+    border-bottom: 1px solid #ddd;
+    padding: 16px 0;
+
+    border-radius: 4px;
+}
+
+.cart .item:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+.cart .item > a {
+    display: flex;
+    align-items: center;
+
+    margin-left: 8px;
+}
+
+.cart .item img {
+    width: 50px;
+    height: 50px;
+
+    object-fit: contain;
+
+    margin-right: 16px;
+
+    border: 1px solid #e7e7e7e7;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px 0px #dadadaef;
+}
+
+.cart .item .title {
+    color: #111;
+    letter-spacing: 0.7px;
+}
+
+.cart .item .price{
+    color: #555;
+    font-weight: bold;
+    font-size: 14px;
+
+    text-align: start;
+}
+
+.cart .item .quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart .item .quantity-control .quantity {
+    margin: 0 8px;
+}
+
+.cart .item .quantity-control .add,
+.cart .item .quantity-control .delete-one,
+.cart .item .quantity-control .delete-all {
+    cursor: pointer;
+    color: #555;
+}
+
+.cart .item .quantity-control .delete-all {
+    text-align: right;
+    color: rgba(255,0,0,0.5);
+
+    transition: color 200ms;
+}
+
+.cart .item .quantity-control .delete-all:hover {
+    color: rgb(255, 0, 0);
+}
+
+.cart .total {
+    margin-top: 24px;
+
+    text-align: right;
+}
+
+.cart .total p{
+    color: #777;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+
+    margin-bottom: 4px;
+}
+
+.cart .total span {
+    font-weight: bolder;
+    font-size: 24px;
+    color: #333;
+
+}
+
+.cart .actions {
+    display: flex;
+    justify-content: space-between
+}
+
+.cart .button.shop {
+    width: 240px;
+    margin: 32px 0;
+}
+
+.cart .button.order {
+    background: var(--secondary-color);
+}
+
+.cart .button.order:hover {
+    background: rgb(0, 16, 156)
+}
+
+.cart-empty {
+    text-align: center;
+}
+
+.cart-empty p {
+    font-size: 18px;
+    line-height: 28px;
+
+    font-weight: 600;
+    color: #333;
+
+    margin-bottom: 32px;
+}
+
+.cart-empty a {
+    width: 200px;
+
+    margin: 0 auto;
+}
