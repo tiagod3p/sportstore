@@ -1,3 +1,101 @@
+function CNPJ(value){
+    let novo_CNPJ = value
+    let aux = novo_CNPJ.slice(0, 12)
+    reverso = 5
+    total = 0
+
+    for (index = 0; index < 12; index++) {
+        if (index > 11)
+            index -= 12
+
+        total += Number(novo_CNPJ[index]) * reverso
+        reverso -= 1
+        if (reverso < 2)
+            reverso = 9
+    }
+
+    formula = 11 - (total % 11)
+    if (formula > 9)
+        digito = 0
+    else
+        digito = formula
+    aux += String(digito)
+
+    reverso = 6
+    total = 0
+
+    for (index = 0; index < 13; index++){
+        if (index > 12)
+            index -= 13
+
+        total += Number(novo_CNPJ[index]) * reverso
+        reverso -= 1
+        if (reverso < 2)
+            reverso = 9
+    }
+    
+    formula = 11 - (total % 11)
+    if (formula > 9)
+        digito = 0
+    else
+        digito = formula
+    aux += String(digito)
+
+    if (aux == novo_CNPJ)
+        return 1
+    else
+        return 0
+}
+
+function CPF(value) {
+    let cpf = value
+    let cpfComparative = value
+    let reverse = 10
+    let total = 0
+    let digit1 = ``
+    let digit2 = ``
+    
+    cpf = cpf.slice(0, 9)
+    
+    console.log(cpf)
+    
+    for (let index = 0; index < 9; index ++) {
+    
+        total += cpf[index] * reverse
+        reverse--
+        if (index == 8) {
+            let aux = 11 - (total % 11)
+            if (aux > 9)
+                digit1 = `0`
+            else
+                digit1 = `${aux}` 
+        }
+    }
+    
+    cpf += digit1
+    
+    reverse = 11
+    total = 0
+    for (let index = 0; index < 10; index ++) {
+    
+    
+        total += cpf[index] * reverse
+        reverse--
+    
+        if (index == 9) {
+            let aux = 11 - (total % 11)
+    
+            if (aux > 9)
+                digit2 = `0`
+            else
+                digit2 = `${aux}`
+        }
+    }
+    
+    cpf += digit2
+    return cpf == cpfComparative
+}
+
 const Mask = {
     apply(input, func) {
         Validate.clearError(input)
@@ -33,6 +131,7 @@ const Mask = {
             value = value = value.replace(/(\d{3})(\d)/, "$1.$2")
             value = value = value.replace(/(\d{3})(\d)/, "$1.$2")
             value = value = value.replace(/(\d{3})(\d)/, "$1-$2")
+
         }
 
         return value
@@ -43,6 +142,17 @@ const Mask = {
         if (value.length > 8) value = value.slice(0,-1)
 
         value = value.replace(/(\d{5})(\d)/, "$1-$2")
+
+        const url = `https://viacep.com.br/ws/${value}/json/`
+
+        const address = document.querySelector('.item input[name="address"]')
+
+        fetch(url).then(response =>{
+            return response.json();
+              }).then(data =>
+              {
+                address.value = data.logradouro
+          })
 
         return value
     }
@@ -276,6 +386,17 @@ const Validate = {
         }
         else if (numbersOfCpfCnpj.length < 11) {
             error = "Invalid CPF"
+        }
+
+        if (numbersOfCpfCnpj.length > 11) {
+            if(!CNPJ(numbersOfCpfCnpj)) {
+                error = "Invalid CNPJ" 
+            }
+        }
+        else {
+            if(!CPF(numbersOfCpfCnpj)) {
+                error = "Invalid CPF" 
+            }
         }
 
         return {

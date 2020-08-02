@@ -167,14 +167,14 @@ li.cart a span {
     right: -6px;
     bottom: -10px;
     background: red;
-    
+
     width: 20px;
     height: 20px;
     border-radius: 50%;
 
     font-size: 12px;
     font-weight: bold;
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -189,4 +189,4 @@ li.cart a span:hover {
 li.cart a:hover span{
     background: white;
     color: black;
-}
+} 
