@@ -10,9 +10,9 @@
         {% for product in products %}
             <div class="product">
                 <div 
-                class="image" 
-                onclick="Redirect.divImageClickTo({{product.id}})"
-                style="background-image: url({{product.image if product.image else '//placehold.it/500x500?text=Product without photo'}});">
+                class="divimage"
+                onclick="Redirect.divImageClickTo({{product.id}})">
+                <img class="image"src={{product.image}} alt="">
                 </div>
 
                 <h4><a href="/products/{{product.id}}" class="name">{{product.name}}</a></h4>

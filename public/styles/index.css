@@ -559,11 +559,16 @@ section.single-product .details .buy .unavailable {
     display:grid;
 }
 
-.shop .product .image {
-    padding-top: 56%;
+.shop .product .divimage {
+    padding: 20px;
+}
 
+.shop .product .image {
     background-size: contain;
     background-repeat: no-repeat;
+
+    width: 100px;
+    height: 100px;
 
     cursor: pointer;
     

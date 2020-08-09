@@ -14,7 +14,7 @@
  
         {% for product in products %}
             <div class="item">
-                <div class="image" style="background-image: url({{product.image}})"></div>
+                <div><img class="image" src={{product.image}} alt={{product.name}}></div>
 
                 <div class="info">
                     <div class="title">{{product.name}}</div>
