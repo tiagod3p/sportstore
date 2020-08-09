@@ -1,6 +1,5 @@
 const Product = require("../models/Product")
 const { formatPrice, dateFormatted } = require("../../lib/utils")
-const { errorMonitor } = require("nodemailer/lib/mailer")
 
 async function getImages(productId) {
     // This function get the files of the products and
@@ -50,6 +49,15 @@ const LoadService = {
             const products = await Product.findAll(this.filter)
             const productsPromise = products.map(format) // -> products.map(product => format(product))
             return Promise.all(productsPromise)
+
+        } catch (err) {
+            console.error(err)
+        }
+    },
+    async productWithDeleted() {
+        try {
+            const product = await Product.findOneWithDeleted(this.filter)
+            return format(product)
 
         } catch (err) {
             console.error(err)

@@ -79,3 +79,41 @@ ADD CONSTRAINT files_product_id_fkey
 FOREIGN KEY ("product_id")
 REFERENCES "products" ("id")
 ON DELETE CASCADE;
+
+CREATE TABLE "orders" (
+	"id" SERIAL PRIMARY KEY,
+  "seller_id" int NOT NULL,
+  "buyer_id" int NOT NULL,
+  "product_id" int NOT NULL,
+  "price" int NOT NULL,
+  "quantity" int DEFAULT 0,
+  "total" int not null,
+  "status" text not null,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
+);
+
+ALTER TABLE "orders" ADD FOREIGN KEY ("seller_id") REFERENCES "users" ("id");
+ALTER TABLE "orders" ADD FOREIGN KEY ("buyer_id") REFERENCES "users" ("id");
+ALTER TABLE "orders" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+
+CREATE TRIGGER set_timestamp 
+BEFORE UPDATE ON public.orders
+FOR EACH ROW 
+EXECUTE FUNCTION public.trigger_set_timestamp();
+
+-- SOFT DELETE
+-- 1. Create one column in table products "deleted_at
+ALTER TABLE products ADD COLUMN "deleted_at" timestamp;
+-- 2. Create a rule to run all times the delete is used
+CREATE OR REPLACE RULE delete_product AS
+ON DELETE TO products DO INSTEAD
+UPDATE products
+SET deleted_at = now()
+WHERE products.id = old.id;
+-- 3. Create a view where we will get the data active
+CREATE VIEW products_without_deleted AS
+SELECT * FROM products WHERE deleted_at IS NULL;
+-- 4. Rename view and table products
+ALTER TABLE products RENAME TO products_with_deleted;
+ALTER VIEW products_without_deleted RENAME TO products;
